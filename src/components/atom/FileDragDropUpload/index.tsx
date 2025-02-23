@@ -152,7 +152,7 @@ const FileDragDropArea = ({
         disabled={disabled}
       />
 
-      <div className={"file-dragdrop-upload"} ref={dragRef}>
+      <div className={"flex justify-center items-center"} ref={dragRef}>
         {children ?? "드래그 드롭"}
       </div>
     </div>

@@ -11,8 +11,6 @@ import React, {
 import Toast from "components/atom/Toast";
 import dynamic from "next/dynamic";
 
-// import ModalPortal from 'utils/modal/ModalPortal';
-
 /** https://nextjs.org/docs/advanced-features/dynamic-import#with-no-ssr */
 const ModalPortal = dynamic(() => import("utils/modal/ModalPortal"), {
   ssr: false,
@@ -99,8 +97,6 @@ const ToastProvider = ({
       setToastId("1");
     }
   }, [toasts]);
-
-  // const { type, open, message } = state;
 
   return (
     <ToastContext.Provider value={{ toastMsg }}>

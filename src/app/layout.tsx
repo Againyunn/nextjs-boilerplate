@@ -33,22 +33,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="[color-scheme:dark]">
+    <html lang="en" className="[color-scheme:white]">
       <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')] pb-36">
         <StoreProvider>
           <ToastProvider>
-            {" "}
             {/* <GlobalNav /> */}
             <div className="lg:pl-72">
               <div className="mx-auto max-w-4xl space-y-8 px-2 pt-20 lg:px-8 lg:py-8">
                 <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
-                  <div className="rounded-lg bg-black">
+                  <div className="rounded-lg bg-white">
                     {/* <AddressBar /> */}
                   </div>
                 </div>
 
                 <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
-                  <div className="rounded-lg bg-black p-3.5 lg:p-6">
+                  <div className="rounded-lg bg-white p-3.5 lg:p-6">
                     {children}
                   </div>
                 </div>

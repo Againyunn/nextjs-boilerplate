@@ -1,7 +1,5 @@
 "use client";
 
-import "./index.scss";
-
 import Draggable, {
   DraggableBounds,
   DraggableData,
@@ -12,7 +10,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { CommonProps } from "utils/common/props";
 import ScrollBox from "components/atom/ScrollBox";
 import XButton from "components/atom/Xbutton";
-import classNames from "classnames";
+import clsx from "clsx";
 import dynamic from "next/dynamic";
 import useModal from "hooks/useModal";
 import useWindowSize from "hooks/useWindowSize";
@@ -24,7 +22,6 @@ const ModalPortal = dynamic(() => import("utils/modal/ModalPortal"), {
 export interface PopupProps extends CommonProps {
   title: string | React.ReactNode;
 
-  /**`Popup`의 제목 영역하단에 들어가는 text */
   helpText?: string;
 
   footer: React.ReactNode;
@@ -140,9 +137,20 @@ const Popup: React.FC<PopupProps> = ({
 
   return (
     <ModalPortal>
-      <div className={classNames("popup-back-root", { on: open })} />
+      <div
+        className={clsx(
+          {
+            hidden: !open,
+          },
+          {
+            "block fixed top-0 left-0 right-0 bottom-0 bg-black z-40 items-center justify-center opacity-30":
+              open,
+          }
+        )}
+      />
       <Draggable
         nodeRef={nodeRef as React.RefObject<HTMLElement>}
+        // tit 지우면 안됨! (drag event target : tit)
         handle=".tit"
         defaultPosition={{ x: 0, y: 0 }}
         position={position}
@@ -151,41 +159,56 @@ const Popup: React.FC<PopupProps> = ({
       >
         <div
           ref={nodeRef}
-          className={classNames(
-            "popup-root",
+          className={clsx(
             {
-              on: open,
+              hidden: !open,
+            },
+            {
+              "z-40 overflow-hidden fixed left-0 right-0 top-0 bottom-0  flex items-center justify-center":
+                open,
             },
             classes
           )}
         >
-          <div ref={popupRef} className="inner">
+          <div
+            ref={popupRef}
+            className="relative bg-white shadow-0-4-12-rgba-0-0-0-16  flex  rounded-md"
+          >
             <div
-              className="popup-left"
+              className="flex-col p-2"
               style={{
                 width: `${width}`,
               }}
             >
-              <div className={`popup-head ${helpText ? "help" : ""}`}>
-                <p className="tit">
+              <div
+                // tit 지우면 안됨! (drag event target : tit)
+                className={`tit h-50px w-full top-0 left-0 bg-white cursor-move flex items-center border-b-2`}
+              >
+                <p className="flex-1 overflow-initial text-xl font-medium">
                   {title}
-                  {helpText && <div className="popup-top-help">{helpText}</div>}
+                  {helpText && <div className="h-88px">{helpText}</div>}
                 </p>
 
                 <XButton onClick={onClose} />
               </div>
               {contentMaxHeight ? (
-                <ScrollBox classes="popup-content" maxHeight={contentMaxHeight}>
+                <ScrollBox
+                  classes="pt-9px px-20px"
+                  maxHeight={contentMaxHeight}
+                >
                   {folder && onClose && <XButton onClick={onClose} />}
-                  <div className="content">{children}</div>
+                  <div className="">{children}</div>
                 </ScrollBox>
               ) : (
-                <div className="popup-content">
+                <div className="pt-9px px-20px">
                   {folder && (
                     <div
-                      className={classNames("popup-folder-button", {
-                        on: folderPopup.opened,
-                      })}
+                      className={clsx(
+                        "absolute top-70px right-0 w-16px h-28px rounded-8px bg-white border-color-dadee5 border-1px hover:bg-white hover:filter-drop-shadow-0-4-6-rgba-25-31-40-12",
+                        {
+                          "right-317px pt-5px pl-4px": folderPopup.opened,
+                        }
+                      )}
                       onClick={
                         folderPopup.opened
                           ? folderPopup.closePopup
@@ -193,12 +216,12 @@ const Popup: React.FC<PopupProps> = ({
                       }
                     ></div>
                   )}
-                  <div className="content">{children}</div>
+                  <div className="py-8px">{children}</div>
                 </div>
               )}
-              <div className="popup-foot">
-                <div className="popup-foot-left">{footerLeft}</div>
-                <div className="popup-foot-right">{footer}</div>
+              <div className="flex w-full px-28px py-14px">
+                <div className="flex w-full justify-start">{footerLeft}</div>
+                <div className="flex w-full justify-end">{footer}</div>
               </div>
             </div>
           </div>

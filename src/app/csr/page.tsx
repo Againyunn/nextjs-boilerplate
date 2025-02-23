@@ -64,7 +64,7 @@ const Page = () => {
   }, [id]);
 
   return (
-    <div className="bg-red-500">
+    <div className="flex flex-col justify-start item-start gap-y-4 ">
       Page
       {res && (
         <>
@@ -73,13 +73,28 @@ const Page = () => {
           {res.body}
         </>
       )}
-      <button onClick={() => setIsModalOpen(true)}>Open Modal</button>
-      <button onClick={() => toast.toastMsg("test", "test", "error")}>
-        toast
+      <button
+        className="w-40 bg-blue-500 hover:bg-blue-600 rounded-md text-white"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Open Modal
+      </button>
+      <button
+        className="w-40 bg-blue-500 hover:bg-blue-600 rounded-md text-white"
+        onClick={() => toast.toastMsg("test", "test", "error")}
+      >
+        토스트
       </button>
       <Popup
         title="Modal"
-        footer={<button onClick={() => setIsModalOpen(false)}>Close</button>}
+        footer={
+          <button
+            className="w-20 bg-blue-500 hover:bg-blue-600 rounded-md text-white"
+            onClick={() => setIsModalOpen(false)}
+          >
+            닫기
+          </button>
+        }
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         width="500px"
@@ -91,7 +106,17 @@ const Page = () => {
             {res?.body}
             {/* <FileUpload onChange={setUploadFiles} /> */}
             <FileDragDropArea onChange={setUploadFiles}></FileDragDropArea>
-            <button onClick={handleSubmitFiles}>Submit</button>
+            <button
+              className={`w-20 bg-blue-500 opacity-50 rounded-md text-white cursor-not-allowed ${
+                uploadFiles.length > 0
+                  ? "cursor-pointer opacity-100 hover:bg-blue-600"
+                  : ""
+              }`}
+              onClick={handleSubmitFiles}
+              disabled={uploadFiles.length === 0}
+            >
+              Submit
+            </button>
           </>
         </div>
       </Popup>

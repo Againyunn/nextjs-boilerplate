@@ -1,5 +1,3 @@
-// import "./index.scss";
-
 import React from "react";
 import XButton from "../Xbutton";
 import clsx from "clsx";
@@ -23,24 +21,24 @@ const Toast: React.FC<ToastProps> = ({
     <div
       className={clsx(
         {
-          "z-50 display-none w-600px max-w-full mt-30px mb-30px mx-auto mb-0.5rem rounded-5px":
+          "z-50 display-none w-600px max-w-full mt-30px mb-30px mx-auto mb-0.5rem rounded-md":
             !open,
         },
         {
-          "z-50 display-block animate-comeFromRight": open,
+          "z-50 display-block animate-comeFromRight rounded-md": open,
         },
 
         {
-          "bg-blue-500": type === "success",
+          "bg-green-500": type === "success",
           "bg-yellow-500": type === "warning",
           "bg-red-500": type === "error",
           "bg-gray-500": type === "normal",
         }
       )}
     >
-      <div className="flex-row items-center h-45px pl-12px pr-12px fw-700 text-14px  text-white">
-        <p className="pl-8px pr-8px">{children || message}</p>
-        {onClose && <XButton onClick={onClose} />}
+      <div className="flex justify-center items-center h-45px px-1 py-1 fw-700 text-14px  text-white rounded-md">
+        <div className="w-80">{children || message}</div>
+        {onClose && <XButton classes="w-10" onClick={onClose} />}
       </div>
     </div>
   );
