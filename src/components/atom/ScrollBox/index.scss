@@ -1,0 +1,56 @@
+// Custom ScrollBar
+@mixin custom-scroll($scrollWidth: 6px, $scrollHeight: 12px) {
+  &::-webkit-scrollbar {
+    width: $scrollWidth;
+    height: $scrollHeight;
+  }
+
+  &::-webkit-scrollbar-button:start:decrement,
+  &::-webkit-scrollbar-button:end:increment {
+    display: block;
+    height: 0;
+    width: 0;
+    background: transform;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 14px 14px transparent;
+    background: transform;
+    border: 4px solid transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 14px 14px #c2c2c2;
+    background: #c2c2c2;
+    border-radius: 3px;
+  }
+}
+
+// ScrollBox
+.scroll-box {
+  &-root {
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 3px;
+      background-color: #b5b5b5;
+    }
+
+    position: relative;
+  }
+
+  // ScrollType (Thin, Transparent)
+  &__type {
+    &-thin {
+      @include custom-scroll(14px, 14px);
+    }
+
+    &-transparent {
+      @include custom-scroll(0, 0);
+    }
+  }
+}

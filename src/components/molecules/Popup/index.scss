@@ -1,0 +1,249 @@
+/* stylelint-disable no-descending-specificity */
+
+// @import "styles/variables";
+
+// Modal
+$modal-header-title-color: #252d38;
+$modal-footer-border-color: #edeff3;
+
+.popup-back-root {
+  display: none;
+  &.on {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+    z-index: 16539000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.3;
+  }
+}
+
+.popup-root {
+  display: none;
+  &.on {
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 16539000; // $top-z-index;
+  }
+
+  & > .inner {
+    position: relative;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+    border-radius: 10px;
+    display: flex;
+
+    & > .popup-left {
+      & > .popup-head {
+        border-radius: 10px;
+        height: 50px;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: #fff;
+        cursor: move;
+        display: flex;
+        align-items: center;
+
+        &.help {
+          height: 88px;
+
+          & > .tit {
+            overflow: initial;
+          }
+        }
+
+        & > .tit {
+          flex: 1 1 auto;
+          color: #252d38; //$modal-header-title-color;
+          padding-left: 28px;
+          font-size: 20px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          font-weight: 700;
+          line-height: 1.3;
+
+          & > .popup-top-help {
+            padding-top: 8px;
+            font-size: 12px;
+            height: 12px;
+            line-height: 12px;
+            font-weight: 400;
+            color: #007bff; //$blue3;
+            background: #fff;
+          }
+        }
+
+        & > .icon-button-root {
+          flex: 0 0 auto;
+          width: 32px;
+          height: 32px;
+          margin-right: 18px;
+
+          & > svg {
+            fill: #fff;
+          }
+
+          // &:hover {
+          //   & > svg {
+          //     fill: #bbb;
+          //   }
+          // }
+        }
+      }
+
+      & > .popup-content {
+        padding: 9px 20px 0 20px;
+
+        &.scroll-box-root {
+          padding: 9px 6px 0 20px !important;
+          margin-right: 6px;
+        }
+
+        & > .popup-folder-button {
+          position: absolute;
+          display: inline;
+          width: 16px;
+          height: 28px;
+          top: 70px;
+          right: 0;
+          border-radius: 8px 0 0 8px;
+          background-color: #fff !important;
+          border-color: #dadee5;
+          border: 1px solid #dadee5;
+          padding: 5px 0 0 2px;
+          cursor: pointer;
+
+          &.on {
+            right: 317px;
+            padding: 5px 0 0 4px;
+
+            & > svg {
+              transform: rotate(0deg);
+            }
+          }
+
+          & > svg {
+            transform: rotate(180deg);
+            fill: #fff;
+            vertical-align: baseline !important;
+          }
+
+          &:hover {
+            background-color: #fff !important;
+            filter: drop-shadow(0 4px 6px rgba(25, 31, 40, 0.12));
+          }
+        }
+      }
+
+      & > .content {
+        padding: 0 8px;
+      }
+
+      & > .popup-foot {
+        width: 100%;
+        display: inline-flex;
+        padding: 14px 28px 14px 28px;
+        box-sizing: border-box;
+
+        .popup-foot-left {
+          display: inherit;
+          align-items: center;
+          width: 100%;
+          text-align: start;
+
+          & > * + * {
+            margin-left: 12px;
+          }
+        }
+
+        .popup-foot-right {
+          display: inherit;
+          align-items: center;
+          width: 100%;
+          justify-content: flex-end;
+
+          & > * + * {
+            margin-left: 12px;
+          }
+        }
+      }
+    }
+
+    & > .popup-right {
+      width: 317px;
+      display: none;
+
+      &.on {
+        display: block;
+      }
+    }
+  }
+}
+
+/*태블릿1  스타일*/
+@media (max-width: 1200px) {
+  .sign-up-root {
+    min-height: calc(100vh - 50px);
+    padding: 0 10rem;
+    // padding: 0 5rem;
+    // .sign-up-bread-crumb {
+    //   padding: 0 5rem;
+    // }
+  }
+}
+
+/*태블릿2  스타일*/
+@media (max-width: 960px) {
+  .sign-up-root {
+    min-height: calc(100vh - 50px);
+    padding: 0 5rem;
+    // padding: 0 5rem;
+
+    // .sign-up-bread-crumb {
+    //   padding: 0 5rem;
+    // }
+  }
+}
+
+/*모바일1  스타일*/
+@media (max-width: 650px) {
+  .sign-up-root {
+    min-height: calc(100vh - 50px);
+    padding: 0 2rem;
+    // padding: 0 2em;
+
+    // .sign-up-bread-crumb {
+    //   padding: 0 2em;
+    // }
+  }
+}
+
+/*모바일2 스타일*/
+@media (max-width: 480px) {
+  .sign-up-root {
+    min-height: calc(100vh - 50px);
+    padding: 0 1em;
+
+    // .sign-up-bread-crumb {
+    //   padding: 0 2em;
+    // }
+  }
+}
