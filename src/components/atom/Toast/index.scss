@@ -1,9 +1,3 @@
-// Toast
-$toast-success-bg: #3e81f7;
-$toast-warning-bg: #f7b93e;
-$toast-error-bg: #f73e3e;
-$toast-normal-bg: #000000;
-
 @keyframes comeFromRight {
   0% {
     transform: translateX(1000em) rotate(0);
@@ -14,18 +8,17 @@ $toast-normal-bg: #000000;
 }
 
 // Toast wrapper
-.toast-root-wapper {
+.toast-root-wrapper {
   z-index: 16539000;
 
   .toast {
     &-root {
-      z-index: 16539000;
+      z-index: 1653900;
       // position: absolute;
       display: none;
       width: 600px;
       max-width: 100%;
       margin: 30px auto;
-      background: $toast-success-bg;
       border-radius: 5px;
       // box-sizing: border-box;
       margin-bottom: 0.5rem;
@@ -38,21 +31,21 @@ $toast-normal-bg: #000000;
     }
 
     // Type(Color)
-    &__type {
-      &--success {
-        background: $toast-success-bg;
+    &_type {
+      &-success {
+        background: #3e81f7;
       }
 
-      &--warning {
-        background: $toast-warning-bg;
+      &-warning {
+        background: #f7b93e;
       }
 
-      &--error {
-        background: $toast-error-bg;
+      &-error {
+        background: #f73e3e;
       }
 
-      &--normal {
-        background: $toast-normal-bg;
+      &-normal {
+        background: #000000;
       }
     }
 

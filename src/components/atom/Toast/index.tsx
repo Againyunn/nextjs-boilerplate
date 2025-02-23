@@ -21,9 +21,13 @@ const Toast: React.FC<ToastProps> = ({
 }) => {
   return (
     <div
-      className={classNames("toast toast-root", `toast__type--${type}`, {
-        on: open,
-      })}
+      className={classNames(
+        "toast toast-root",
+        {
+          on: open,
+        },
+        `toast_type-${type}`
+      )}
     >
       <div className="toast-inner">
         <p>{children || message}</p>
