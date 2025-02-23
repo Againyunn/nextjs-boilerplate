@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import FileDragDropArea from "components/atom/FileDragDropUpload";
+// import FileUpload from "components/atom/FileUpload";
 import Popup from "components/molecules/Popup";
 import testApi from "api/testApi";
 import { useSearchParams } from "next/navigation";
@@ -15,7 +17,28 @@ const Page = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [uploadFiles, setUploadFiles] = useState<File[]>([]);
+
   // console.log(categoryId, postId);
+
+  const handleSubmitFiles = async (): Promise<void> => {
+    const formData = new FormData();
+    uploadFiles.forEach((file) => {
+      formData.append("file", file);
+    });
+
+    console.log(formData);
+
+    const response = await fetch(
+      "http://localhost:3050/apis/admin2/upload/img",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+
+    console.log(response);
+  };
 
   useEffect(() => {
     if (!id) {
@@ -60,6 +83,9 @@ const Page = () => {
             {res?.id}
             {res?.title}
             {res?.body}
+            {/* <FileUpload onChange={setUploadFiles} /> */}
+            <FileDragDropArea onChange={setUploadFiles}></FileDragDropArea>
+            <button onClick={handleSubmitFiles}>Submit</button>
           </>
         </div>
       </Popup>
