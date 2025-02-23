@@ -1,7 +1,5 @@
 "use client";
 
-import "./home.scss";
-
 import { AppStore, makeStore } from "app/_redux/store";
 
 import LoadingDots from "components/atom/Loading";
@@ -28,11 +26,7 @@ export default function StoreProvider({
     <Provider store={storeRef.current}>
       <PersistGate
         persistor={storeRef.current.__persistor}
-        loading={
-          <div className="home-loading">
-            <LoadingDots />
-          </div>
-        }
+        loading={<LoadingDots />}
       >
         {children}
       </PersistGate>

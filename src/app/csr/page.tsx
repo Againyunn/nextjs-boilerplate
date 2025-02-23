@@ -7,6 +7,7 @@ import FileDragDropArea from "components/atom/FileDragDropUpload";
 import Popup from "components/molecules/Popup";
 import testApi from "api/testApi";
 import { useSearchParams } from "next/navigation";
+import { useToast } from "utils/toast/ToastContext";
 
 const Page = () => {
   const params = useSearchParams();
@@ -14,6 +15,8 @@ const Page = () => {
   const id = params.get("id");
   // const categoryId = params.get("categoryId");
   // const postId = params.get("postId");
+
+  const toast = useToast();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -71,6 +74,9 @@ const Page = () => {
         </>
       )}
       <button onClick={() => setIsModalOpen(true)}>Open Modal</button>
+      <button onClick={() => toast.toastMsg("test", "test", "error")}>
+        toast
+      </button>
       <Popup
         title="Modal"
         footer={<button onClick={() => setIsModalOpen(false)}>Close</button>}

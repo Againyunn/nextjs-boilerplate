@@ -7,7 +7,7 @@ import Draggable, {
   DraggableData,
   DraggableEvent,
 } from "react-draggable";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { CommonProps } from "utils/common/props";
 import ScrollBox from "components/atom/ScrollBox";
@@ -22,31 +22,23 @@ const ModalPortal = dynamic(() => import("utils/modal/ModalPortal"), {
 });
 
 export interface PopupProps extends CommonProps {
-  /**`Popup`의 제목 영역 */
   title: string | React.ReactNode;
 
   /**`Popup`의 제목 영역하단에 들어가는 text */
   helpText?: string;
 
-  /**`Popup`의 우측 하단에 삽입되는 항목, 일반적으로 팝업을 닫거나 상호작용을 하는 버튼을 넣어준다 */
   footer: React.ReactNode;
-
-  /**`Popup`의 좌측 측하단에 삽입되는 항목 */
   footerLeft?: React.ReactNode;
 
-  /**`Popup`의 보여줌 여부를 결정한다 */
   open: boolean;
-
-  /**`Popup`을 종료하기 위한 함수 */
   onClose: () => void;
 
-  /**팝업의 너비를 지정해준다, ex) `"100px"` */
   width?: string;
 
-  /**children이 표시 되는 영역의 높이를 제한한다 */
+  /**children이 표시 되는 영역의 높이를 제한 */
   contentMaxHeight?: number;
 
-  /**입력을 하게 되면 `Popup` 우측에 접히는 영역을 추가로 표시해준다 */
+  /**입력을 하게 되면 `Popup` 우측에 접히는 영역을 추가로 표시 */
   folder?: React.ReactNode;
   classes?: string;
   children?: React.ReactNode;
@@ -117,40 +109,34 @@ const Popup: React.FC<PopupProps> = ({
     }
   }, [open, windowInnerHeight, windowInnerWidth]);
 
-  // // Outbound 클릭시 꺼지는 기능 && ESC 누를때 꺼지는 기능
-  // const handleKeydownEscape = useCallback(
-  //   (event: KeyboardEvent) => {
-  //     if (event.key === 'Escape' && onClose) {
-  //       onClose();
-  //     }
-  //   },
-  //   [onClose],
-  // );
+  // Outbound 클릭시 꺼지는 기능 && ESC 누를때 꺼지는 기능
+  const handleKeydownEscape = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Escape" && onClose) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
   // const handleClickOutside = useCallback((e: MouseEvent) => {
+  //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   //   if (popupRef.current && !(popupRef.current! as any).contains(e.target)) {
   //     onClose();
   //   }
   // }, []);
 
-  // useEffect(() => {
-  //   if (open) {
-  //     // document.addEventListener('click', handleClickOutside);
-  //     window.addEventListener('keyup', handleKeydownEscape);
-  //   } else {
-  //     // document.removeEventListener('click', handleClickOutside);
-  //     window.removeEventListener('keyup', handleKeydownEscape);
-  //   }
-  //   return () => {
-  //     window.removeEventListener('keyup', handleKeydownEscape);
-  //   };
-  // }, [open, handleKeydownEscape]);
-
-  // useEffect(() => {
-  //   // closed상태였는데, folder에 데이터가 들어오면? open시켜주기
-  //   if (folderPopup.opened === false && folder) {
-  //     folderPopup.openPopup();
-  //   }
-  // }, [folder, folderPopup]);
+  useEffect(() => {
+    if (open) {
+      window.addEventListener("keyup", handleKeydownEscape);
+      // window.addEventListener("click", handleClickOutside);
+    } else {
+      window.removeEventListener("keyup", handleKeydownEscape);
+      // window.removeEventListener("click", handleClickOutside);
+    }
+    return () => {
+      window.removeEventListener("keyup", handleKeydownEscape);
+    };
+  }, [open, handleKeydownEscape]);
 
   return (
     <ModalPortal>
@@ -205,9 +191,7 @@ const Popup: React.FC<PopupProps> = ({
                           ? folderPopup.closePopup
                           : folderPopup.openPopup
                       }
-                    >
-                      {/* <ChevronLeftIcon /> */}
-                    </div>
+                    ></div>
                   )}
                   <div className="content">{children}</div>
                 </div>
@@ -217,15 +201,6 @@ const Popup: React.FC<PopupProps> = ({
                 <div className="popup-foot-right">{footer}</div>
               </div>
             </div>
-            {folder && (
-              <div
-                className={classNames("popup-right", {
-                  on: folderPopup.opened,
-                })}
-              >
-                {folder}
-              </div>
-            )}
           </div>
         </div>
       </Draggable>

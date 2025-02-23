@@ -32,9 +32,7 @@ export const makeConfiguredStore = () => {
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
-        serializableCheck: {
-          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
+        serializableCheck: false,
       }),
   });
 };
@@ -45,11 +43,8 @@ export const makeStore = () => {
   if (isServer) {
     return makeConfiguredStore();
   } else {
-    const persistedReducer = persistReducer(persistConfig, rootReducer);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const store: any = configureStore({
-      reducer: persistedReducer,
-    });
+    const store: any = makeConfiguredStore();
     store.__persistor = persistStore(store);
     return store;
   }
