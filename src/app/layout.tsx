@@ -1,8 +1,9 @@
-// import "#/styles/globals.css";
-
 // import { AddressBar } from '#/ui/address-bar';
 // import Byline from '#/ui/byline';
 // import { GlobalNav } from '#/ui/global-nav';
+
+import "./globals.css";
+
 import { Metadata } from "next";
 import StoreProvider from "./StoreProvider";
 import ToastProvider from "utils/toast/ToastContext";

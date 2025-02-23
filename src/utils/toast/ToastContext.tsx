@@ -88,7 +88,7 @@ const ToastProvider = ({
     if (toasts.length > 0) {
       const timer = setTimeout(
         () => setToasts((toasts) => toasts.slice(1)),
-        2000
+        2000000
       );
 
       if (toasts.length >= 6) {
@@ -108,7 +108,7 @@ const ToastProvider = ({
 
       <ModalPortal>
         <div
-          className="toast-root-wrapper"
+          className="z-50"
           style={{ position: "fixed", top: "10%", left: "15%", right: "15%" }}
         >
           {toasts.map((toast, tIdx) => {
